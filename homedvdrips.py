@@ -14,6 +14,17 @@ except:
     sys.exit('lsdvd probably not installed')
 
 
+# Ask user which subtitle to burn in
+subtitle = input("Which subtitle you want?: ")
+
+if (subtitle == 1): 
+    subtitle = 1
+else:
+    if (subtitle == 2):
+        subtitle = 2
+    else:
+        subtitle = 1
+
 # Create placeholder for series
 dvdname = lsdvd["title"]
 try:
@@ -24,7 +35,7 @@ except:
     os.makedirs(dvdname)
 
 for n in range(2, len(lsdvd["track"])):
-    handbrakecmd = "HandBrakeCLI -i /mnt/dvd/ -t " + str(n) + " -f av_mp4 -o " + str(dvdname) + "/" + str(n) + ".mp4" + " -e x264 -r 25 -a 1 -E ffaac -s 2 --subtitle-burned 2"
+    handbrakecmd = "HandBrakeCLI -i /mnt/dvd/ -t " + str(n) + " -f av_mp4 -o " + str(dvdname) + "/" + str(n) + ".mp4" + " -e x264 -r 25 -a 1 -E ffaac -s " + str(subtitle) + " --subtitle-burned 2"
     print(handbrakecmd)
     os.system(handbrakecmd)
     rep = n - 1
